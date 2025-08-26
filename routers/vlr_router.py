@@ -108,6 +108,27 @@ async def VLR_match(
         return {"error": "Invalid query parameter"}
 
 
+@router.get("/match/{match_id}")
+@limiter.limit("600/minute")
+async def VLR_match_details(
+    request: Request,
+    match_id: str
+):
+    """
+    Get detailed information about a specific match.
+    
+    Args:
+        match_id (str): The ID of the match to get details for. Can be either:
+                        - A numeric ID (e.g. "123456")
+                        - A full match URL path (e.g. "/123456/team1-vs-team2")
+                        - A complete VLR.GG URL (e.g. "https://www.vlr.gg/123456/team1-vs-team2")
+    
+    Returns:
+        Match details including teams, score, maps, player stats, and stream links.
+    """
+    return vlr.vlr_match_details(match_id)
+
+
 @router.get("/health")
 def health():
     return vlr.check_health()

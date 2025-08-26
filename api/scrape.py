@@ -1,6 +1,7 @@
 from api.scrapers import (
     check_health,
     vlr_live_score,
+    vlr_match_details,
     vlr_match_results,
     vlr_news,
     vlr_rankings,
@@ -33,6 +34,10 @@ class Vlr:
     @staticmethod
     def vlr_match_results(num_pages=1, from_page=None, to_page=None, max_retries=3, request_delay=1.0, timeout=30):
         return vlr_match_results(num_pages, from_page, to_page, max_retries, request_delay, timeout)
+
+    @staticmethod
+    def vlr_match_details(match_url):
+        return vlr_match_details(match_url)
 
     @staticmethod
     def check_health():
